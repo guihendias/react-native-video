@@ -680,7 +680,7 @@ class RCTVideo: UIView, RCTVideoPlayerViewControllerDelegate, RCTPlayerObserverH
         if fullscreen && !_fullscreenPlayerPresented && _player != nil {
             // Ensure player view controller is not null
             // Controls will be displayed even if it is disabled in configuration
-            if _playerViewController == nil {
+            if _playerViewController == nil && _controls {
                 self.usePlayerViewController()
             }
 
@@ -711,7 +711,7 @@ class RCTVideo: UIView, RCTVideoPlayerViewControllerDelegate, RCTPlayerObserverH
                     viewController.present(playerViewController, animated:true, completion:{ [weak self] in
                         guard let self = self else {return}
                         // In fullscreen we must display controls
-                        self._playerViewController?.showsPlaybackControls = true
+                        self._playerViewController?.showsPlaybackControls = self._controls
                         self._fullscreenPlayerPresented = fullscreen
                         self._playerViewController?.autorotate = self._fullscreenAutorotate
 
